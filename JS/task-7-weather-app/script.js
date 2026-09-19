@@ -38,8 +38,8 @@ searchButton.addEventListener("click", (e) => {
         getWeatherData(city);
     }
 })
-
-getWeatherData("Chennai");
+const lastSearchedCity = localStorage.getItem('lastCity') || "Chennai";
+getWeatherData(lastSearchedCity);
 async function getWeatherData(city) {
     const cityKey = city.toLowerCase();
     // 1. Check local storage for cached data
@@ -55,6 +55,7 @@ async function getWeatherData(city) {
             (now - masterCache[cityKey].time < 1800000)
         ) {
             console.log(`Loaded ${city} from cache! (No API hit)`);
+            localStorage.setItem('lastCity', city);
             updateWeather(masterCache[cityKey].data);
             return; // Stop here so it doesn't run the rate limiter or hit the API
         }
@@ -79,6 +80,7 @@ async function getWeatherData(city) {
             data: data
         };
         localStorage.setItem('weatherCache', JSON.stringify(masterCache));
+        localStorage.setItem('lastCity', city);
         updateWeather(data);
     } catch (error) {
         console.error("Error fetching weather data:", error);
