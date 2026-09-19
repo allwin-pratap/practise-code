@@ -1,0 +1,409 @@
+/* =========================
+   Reset
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================
+   Base
+========================= */
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f7fb;
+  color: #172554;
+}
+
+/* =========================
+   Main Container
+========================= */
+.app-header {
+    margin-bottom: 24px;
+}
+
+.app-header h1 {
+    font-size: 32px;
+    color: #172554;
+    margin-bottom: 6px;
+}
+
+.app-header p {
+    color: #64748b;
+    font-size: 15px;
+}
+
+.weather-app {
+  width: min(100% - 32px, 1000px);
+  margin: 40px auto;
+}
+
+/* =========================
+   Search
+========================= */
+
+.search-section {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+form {
+  display: flex;
+  gap: 12px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 14px 16px;
+  border: 1px solid #d5ddeb;
+  border-radius: 10px;
+  background: white;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #2563eb;
+}
+
+.search-button {
+  padding: 14px 24px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background: #1d4ed8;
+}
+
+/* =========================
+   Main Weather Card
+========================= */
+
+.weather-card {
+  padding: 32px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+/* =========================
+   Location
+========================= */
+
+.location h1 {
+  margin-bottom: 6px;
+  font-size: 32px;
+}
+
+.location-name {
+  margin-bottom: 8px;
+  color: #64748b;
+  font-size: 18px;
+}
+
+.local-time {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* =========================
+   Current Weather
+========================= */
+
+.current-weather {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.weather-icon {
+  font-size: 80px;
+}
+
+.current-temperature h2 {
+  margin-bottom: 8px;
+  font-size: 64px;
+  line-height: 1;
+}
+
+.current-temperature p {
+  margin-bottom: 6px;
+  font-size: 22px;
+}
+
+.current-temperature span {
+  color: #64748b;
+  font-size: 15px;
+}
+
+/* =========================
+   Sun
+========================= */
+
+.sun-section h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.sun-details {
+  display: flex;
+  gap: 80px;
+}
+
+.sun-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sun-item span {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.sun-item strong {
+  font-size: 20px;
+}
+
+/* =========================
+   Forecast Section
+========================= */
+
+.section-title {
+  margin-bottom: 16px;
+  font-size: 24px;
+}
+
+.forecast-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* =========================
+   Forecast Card
+========================= */
+
+.forecast-card {
+  padding: 24px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* =========================
+   Forecast Header
+========================= */
+
+.forecast-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.forecast-header h3 {
+  margin-bottom: 6px;
+  font-size: 22px;
+}
+
+.forecast-header p {
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+.forecast-icon {
+  font-size: 48px;
+}
+
+/* =========================
+   Forecast Condition
+========================= */
+
+.forecast-condition {
+  margin-top: 12px;
+
+  color: #475569;
+
+  font-size: 16px;
+}
+
+/* =========================
+   Temperature Summary
+========================= */
+
+.temperature-summary {
+  display: flex;
+
+  gap: 40px;
+
+  margin: 24px 0;
+}
+
+.temperature-item {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.temperature-item strong {
+  font-size: 22px;
+}
+
+.temperature-item span {
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+/* =========================
+   Forecast Details
+========================= */
+
+.forecast-details {
+  padding-top: 16px;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+.forecast-detail {
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+}
+
+.forecast-detail:last-child {
+  margin-bottom: 0;
+}
+
+.forecast-detail span {
+  color: #64748b;
+}
+
+.forecast-detail strong {
+  font-weight: 600;
+}
+
+/* =========================
+   Tablet
+========================= */
+
+@media (max-width: 700px) {
+  .weather-app {
+    width: min(100% - 24px, 1000px);
+
+    margin: 24px auto;
+  }
+
+  .weather-card {
+    padding: 24px;
+  }
+
+  .current-temperature h2 {
+    font-size: 52px;
+  }
+
+  .weather-icon {
+    font-size: 64px;
+  }
+
+  .temperature-summary {
+    gap: 24px;
+  }
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 550px) {
+  .weather-app {
+    width: calc(100% - 20px);
+
+    margin: 20px auto;
+  }
+
+  /* Search */
+
+  .search-section {
+    flex-direction: column;
+  }
+
+  .search-button {
+    width: 100%;
+  }
+
+  /* Weather Card */
+
+  .weather-card {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .location h1 {
+    font-size: 26px;
+  }
+
+  .location-name {
+    font-size: 16px;
+  }
+
+  /* Current Weather */
+
+  .current-weather {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .weather-icon {
+    font-size: 64px;
+  }
+
+  .current-temperature h2 {
+    font-size: 48px;
+  }
+
+  .current-temperature p {
+    font-size: 20px;
+  }
+
+  /* Sun */
+
+  .sun-details {
+    justify-content: space-between;
+
+    gap: 20px;
+  }
+
+  /* Forecast */
+
+  .forecast-container {
+    grid-template-columns: 1fr;
+  }
+
+  .forecast-card {
+    padding: 20px;
+  }
+
+  .temperature-summary {
+    justify-content: space-between;
+    gap: 10px;
+  }
+}

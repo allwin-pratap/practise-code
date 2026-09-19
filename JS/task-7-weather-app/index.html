@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="weather-app">
+    <header class="app-header">
+      <h1>🌤️ Weather App</h1>
+      <p>Check the current weather and forecast</p>
+    </header>
+    <!-- Search -->
+    <section class="search-section">
+      <form id="search-form">
+        <input 
+          type="text" 
+          class="search-input" 
+          id="city-input" 
+          placeholder="Search city..." 
+          required
+        >
+        <button type="submit" class="search-button" id="search-button">
+          Search
+        </button>
+      </form>
+    </section>
+
+    <!-- Current Weather Card -->
+    <section class="weather-card">
+      <!-- Location -->
+      <div class="location">
+        <h1 id="city">Chennai</h1>
+        <p class="location-name" id="region">
+          Tamil Nadu, India
+        </p>
+        <p class="local-time" id="localTime">
+          Loading...
+        </p>
+      </div>
+      <!-- Current Weather -->
+      <div class="current-weather">
+        <div class="weather-icon" id="weatherIcon">
+          🌧️
+        </div>
+        <div class="current-temperature">
+          <h2 id="temperature">28°C</h2>
+          <p id="condition">
+            Light Rain
+          </p>
+          <span id="feelsLike">
+            Feels like 32°C
+          </span>
+        </div>
+      </div>
+      <!-- Sun -->
+      <div class="sun-section">
+        <h2>☀️ Sun</h2>
+        <div class="sun-details">
+          <div class="sun-item">
+            <span>Sunrise</span>
+            <strong id="sunrise">5:58 AM</strong>
+          </div>
+          <div class="sun-item">
+            <span>Sunset</span>
+            <strong id="sunset">6:10 PM</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 2-Day Forecast -->
+    <section class="forecast-section">
+      <h2 class="section-title">
+        📅 Next 2 Days
+      </h2>
+      <div class="forecast-container">
+        <!-- Forecast Day 1 -->
+        <article class="forecast-card">
+          <div class="forecast-header">
+            <div>
+              <h3 id="forecastDay1">Tomorrow</h3>
+              <p id="forecastDate1">
+                Sunday, 20 September
+              </p>
+            </div>
+            <div class="forecast-icon" id="forecastIcon1">
+              🌤️
+            </div>
+          </div>
+          <p class="forecast-condition" id="forecastCondition1">
+            Partly Cloudy
+          </p>
+          <div class="temperature-summary">
+            <div class="temperature-item">
+              <strong id="maxTemp1">32°C</strong>
+              <span>Max</span>
+            </div>
+            <div class="temperature-item">
+              <strong id="minTemp1">25°C</strong>
+              <span>Min</span>
+            </div>
+            <div class="temperature-item">
+              <strong id="avgTemp1">28°C</strong>
+              <span>Avg</span>
+            </div>
+          </div>
+          <div class="forecast-details">
+            <div class="forecast-detail">
+              <span>Chance of Rain</span>
+              <strong id="rainChance1">30%</strong>
+            </div>
+            <div class="forecast-detail">
+              <span>Total Precipitation</span>
+              <strong id="precip1">1.2 mm</strong>
+            </div>
+          </div>
+        </article>
+
+        <!-- Forecast Day 2 -->
+        <article class="forecast-card">
+          <div class="forecast-header">
+            <div>
+              <h3 id="forecastDay2">Monday</h3>
+              <p id="forecastDate2">
+                21 September
+              </p>
+            </div>
+            <div class="forecast-icon" id="forecastIcon2">
+              ☀️
+            </div>
+          </div>
+          <p class="forecast-condition" id="forecastCondition2">
+            Sunny
+          </p>
+          <div class="temperature-summary">
+            <div class="temperature-item">
+              <strong id="maxTemp2">33°C</strong>
+              <span>Max</span>
+            </div>
+            <div class="temperature-item">
+              <strong id="minTemp2">26°C</strong>
+              <span>Min</span>
+            </div>
+            <div class="temperature-item">
+              <strong id="avgTemp2">30°C</strong>
+              <span>Avg</span>
+            </div>
+          </div>
+          <div class="forecast-details">
+            <div class="forecast-detail">
+              <span>Chance of Rain</span>
+              <strong id="rainChance2">10%</strong>
+            </div>
+            <div class="forecast-detail">
+              <span>Total Precipitation</span>
+              <strong id="precip2">0.3 mm</strong>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
