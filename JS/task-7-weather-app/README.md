@@ -26,8 +26,9 @@ The response provides:
 - Show sunrise and sunset
 - Show maximum, minimum, and average temperatures
 - Show rain chance and total precipitation
-- Limit uncached API requests to 10 per day
+- Limit uncached API requests to 20 per day
 - Cache each city's weather data for 30 minutes
+- Remove expired city data during cache cleanup
 
 ## Original API Problem
 
@@ -51,8 +52,8 @@ The goal is to reduce unnecessary requests while still showing reasonably fresh 
 
 The solution uses two `localStorage` features:
 
-1. A daily API request limit of 10 requests.
-2. A separate 30-minute cache for each searched city.
+1. A daily API request limit of 20 requests.
+2. A shared cache object containing 30-minute data for each searched city.
 
 The order is important:
 
@@ -114,15 +115,19 @@ function canMakeApiCall() {
 - The key is `weatherApiUsage`.
 - It stores the request `count` and the current `date`.
 - On a new day, the count resets to zero.
-- On the eleventh uncached request, the API call is stopped.
+- On the twenty-first uncached request, the API call is stopped.
 
 ## Step 2: Cache Weather Data for 30 Minutes
 
-Weather data for the same city is stored with a timestamp:
+Weather data for all cities is stored inside one `weatherCache` object. The city name becomes a property inside that object:
 
 ```javascript
-const cacheKey = `weatherCache_${city.toLowerCase()}`;
-const cached = JSON.parse(localStorage.getItem(cacheKey));
+const cityKey = city.toLowerCase();
+const masterCache = JSON.parse(
+	localStorage.getItem("weatherCache")
+) || {};
+
+const cached = masterCache[cityKey];
 const now = Date.now();
 const CACHE_TIME = 30 * 60 * 1000;
 
@@ -144,35 +149,53 @@ if (!canMakeApiCall()) return;
 const response = await fetch(url);
 const data = await response.json();
 
-localStorage.setItem(cacheKey, JSON.stringify({
+masterCache[cityKey] = {
 	city: city,
 	time: Date.now(),
 	data: data
-}));
+};
+
+localStorage.setItem("weatherCache", JSON.stringify(masterCache));
 
 updateWeather(data);
 ```
 
 ## Why Each City Needs Its Own Cache
 
-A single cache object would cause the previous city's data to appear while searching for a new city. Instead, the city is part of the storage key:
+A single value for only the latest city would cause old data to be shown incorrectly. The current solution keeps multiple cities in one object, using the normalized city name as the property key:
 
 ```text
-weatherCache_chennai
-weatherCache_mumbai
-weatherCache_thailand
+weatherCache: {
+	chennai: {...},
+	mumbai: {...},
+	thailand: {...}
+}
 ```
 
 This makes the flow work correctly:
 
 ```text
-Chennai -> API call -> save weatherCache_chennai
-Mumbai  -> API call -> save weatherCache_mumbai
-Chennai -> read weatherCache_chennai -> no API call
-Thailand -> API call -> save weatherCache_thailand
+Chennai -> API call -> save cache.chennai
+Mumbai  -> API call -> save cache.mumbai
+Chennai -> read cache.chennai -> no API call
+Thailand -> API call -> save cache.thailand
 ```
 
 If Chennai's cache is less than 30 minutes old, the user sees the cached result. If it is older, the app makes a new request and replaces the old Chennai cache.
+
+## Step 4: Remove Expired Cache Entries
+
+Before saving a new response, the app loops through the shared cache and removes entries older than 30 minutes:
+
+```javascript
+for (const key in masterCache) {
+	if (now - masterCache[key].time >= CACHE_TIME) {
+		delete masterCache[key];
+	}
+}
+```
+
+This prevents old city data from staying in `localStorage` forever and keeps the cache small.
 
 ## Important Limitations
 
@@ -191,6 +214,7 @@ For a production application, enforce the request limit on a backend server and 
 2. Enforce the daily limit on the backend so users cannot reset it by clearing `localStorage`.
 3. Handle invalid cities, failed requests, and API rate-limit responses with user-friendly messages.
 4. Store the cache on the server if multiple users should share cached results.
+5. Request enough forecast days for every forecast card. The current request uses `days=2`, but the code reads `forecastday[2]`, which requires a third forecast day.
 
 ## Run Locally
 

@@ -6,7 +6,7 @@ let searchButton = document.getElementById("search-button");
 
 //prevent exceeding the limit of API calls per day
 // Prevent exceeding the limit of API calls per day
-const MAX_HITS_PER_DAY = 10;
+const MAX_HITS_PER_DAY = 20;
 
 function canMakeApiCall() {
     const today = new Date().toDateString();
@@ -41,21 +41,23 @@ searchButton.addEventListener("click", (e) => {
 
 getWeatherData("Chennai");
 async function getWeatherData(city) {
+    const cityKey = city.toLowerCase();
     // 1. Check local storage for cached data
-    const cacheKey = `weatherCache_${city.toLowerCase()}`;
-    const cached = JSON.parse(localStorage.getItem(cacheKey));
+    // const cacheKey = `weatherCache_${city.toLowerCase()}`;
+    // const cached = JSON.parse(localStorage.getItem(cacheKey));
+    let masterCache = JSON.parse(localStorage.getItem('weatherCache')) || {};
     const now = Date.now();
 
     // 2. If cache exists, matches the city, and is less than 30 mins (1,800,000 ms) old
-    if (
-        cached && 
-        cached.city.toLowerCase() === city.toLowerCase() && 
-        (now - cached.time < 1800000)
-    ) {
-        console.log(`Loaded ${city} from cache! (No API hit)`);
-        updateWeather(cached.data);
-        return; // Stop here so it doesn't run the rate limiter or hit the API
-    }
+        if (
+            masterCache[cityKey] && 
+            masterCache[cityKey].city.toLowerCase() === city.toLowerCase() && 
+            (now - masterCache[cityKey].time < 1800000)
+        ) {
+            console.log(`Loaded ${city} from cache! (No API hit)`);
+            updateWeather(masterCache[cityKey].data);
+            return; // Stop here so it doesn't run the rate limiter or hit the API
+        }
 
     // 3. Cache is invalid/missing. Check daily API limit before fetching.
     if (!canMakeApiCall()) return;
@@ -64,11 +66,19 @@ async function getWeatherData(city) {
     try {
         let response = await fetch(url);
         let data = await response.json();
-        localStorage.setItem(cacheKey, JSON.stringify({
+        // 4. Housekeeping: Loop through the cache and delete any expired cities 
+        // to prevent the object from growing infinitely over time.
+        for (const key in masterCache) {
+            if (now - masterCache[key].time >= 1800000) {
+                delete masterCache[key];
+            }
+        }
+        masterCache[cityKey] = {
             city: city,
             time: now,
             data: data
-        }));
+        };
+        localStorage.setItem('weatherCache', JSON.stringify(masterCache));
         updateWeather(data);
     } catch (error) {
         console.error("Error fetching weather data:", error);
