@@ -119,11 +119,11 @@ function updateWeather(data) {
         data.forecast.forecastday[0].astro.sunset;
     // Next 2 Days
     updateForecast(
-        data.forecast.forecastday[1],
+        data.forecast.forecastday[0],
         1
     );
     updateForecast(
-        data.forecast.forecastday[2],
+        data.forecast.forecastday[1],
         2
     );
 }
@@ -131,7 +131,7 @@ function updateWeather(data) {
 // Update forecast card
 function updateForecast(day, number) {
     document.getElementById(`forecastDay${number}`).innerText =
-        getDayName(day.date);
+        getDayName(day?.date);
     document.getElementById(`forecastCondition${number}`).innerText =
         day.day.condition.text;
     document.getElementById(`maxTemp${number}`).innerText =
