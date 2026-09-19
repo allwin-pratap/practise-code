@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Task List</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+
+            padding: 60px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+
+            background: white;
+            padding: 35px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Header */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: #222;
+        }
+
+        .header p {
+            margin-top: 5px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* Remove all button */
+
+        .button {
+            border: none;
+            color: white;
+
+            padding: 10px 16px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        #restoreAll {
+            background: #4aca00;
+        }
+
+        #restoreAll:hover {
+            background: #389900;
+            transform: translateY(-1px);
+        }
+
+        #removeAll {
+            background: #ef4444;
+        }
+
+        #removeAll:hover {
+            background: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        /* List */
+
+        ul {
+            list-style: none;
+
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Individual task */
+
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 16px 18px;
+
+            background: #f8fafc;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 12px;
+
+            transition: 0.2s ease;
+        }
+
+        li:hover {
+            background: #f1f5f9;
+            border-color: #d1d5db;
+
+            transform: translateX(3px);
+        }
+
+        li p {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* Delete button */
+
+        .delete_button {
+            border: none;
+
+            background: #fee2e2;
+            color: #dc2626;
+
+            padding: 8px 14px;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .delete_button:hover {
+            background: #dc2626;
+            color: white;
+        }
+
+        /* Explanation */
+
+        .explanation {
+            margin-top: 30px;
+            padding: 20px;
+
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+
+            color: #475569;
+        }
+
+        .explanation h3 {
+            margin-bottom: 12px;
+
+            font-size: 17px;
+            color: #1e293b;
+        }
+
+        .explanation p {
+            margin-bottom: 10px;
+
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .explanation p:last-child {
+            margin-bottom: 0;
+        }
+
+        .explanation strong {
+            color: #334155;
+        }
+
+        .explanation code {
+            padding: 2px 6px;
+
+            background: #e2e8f0;
+            border-radius: 5px;
+
+            color: #7c3aed;
+            font-family: monospace;
+        }
+
+
+        /* Mobile */
+
+        @media (max-width: 600px) {
+            body {
+                padding: 25px 15px;
+            }
+
+            .container {
+                padding: 25px 20px;
+            }
+
+            .header {
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            button {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            li {
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div>
+                <h1>My Tasks</h1>
+                <p>Manage your tasks easily</p>
+            </div>
+            <div>
+                <button class="button" id="restoreAll">Restore All</button>
+                <button class="button" id="removeAll">Remove All</button>
+            </div>
+        </div>
+
+        <ul>
+            <li>
+                <p>Task - 1</p>
+                <button class="delete_button">Delete</button>
+            </li>
+
+            <li>
+                <p>Task - 2</p>
+                <button class="delete_button">Delete</button>
+            </li>
+
+            <li>
+                <p>Task - 3</p>
+                <button class="delete_button">Delete</button>
+            </li>
+
+            <li>
+                <p>Task - 4</p>
+                <button class="delete_button">Delete</button>
+            </li>
+        </ul>
+        <div class="explanation">
+            <h3>How it works</h3>
+
+            <p>
+                <strong>Delete:</strong>
+                Clicking <b>Delete</b> removes that task from the page and
+                stores the removed element in <code>storeDeletedTasks</code>.
+            </p>
+
+            <p>
+                <strong>Remove All:</strong>
+                Removes every task and stores each removed
+                <code>&lt;li&gt;</code> in the same array.
+            </p>
+
+            <p>
+                <strong>Restore All:</strong>
+                Takes the stored <code>&lt;li&gt;</code> elements and
+                adds them back into the <code>&lt;ul&gt;</code>.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Write your JavaScript here
+        let removeAll = document.getElementById("removeAll");
+        let restoreAll = document.getElementById("restoreAll");
+        let removeOnClick = document.querySelectorAll(".delete_button");
+        let storeDeletedTasks = [];
+        removeAll.addEventListener("click", function () {
+            for (let i = 0; i < removeOnClick.length; i++) {
+                storeDeletedTasks.push(removeOnClick[i].parentElement)
+                removeOnClick[i].parentElement.remove();
+            }
+        })
+        restoreAll.addEventListener("click", function () {
+            // Implementation for restoring all tasks
+            let ul = document.querySelector("ul");
+            for (let i = 0; i < storeDeletedTasks.length; i++) {
+                ul.appendChild(storeDeletedTasks[i]);
+            }
+        })
+        for (let i = 0; i < removeOnClick.length; i++) {
+            removeOnClick[i].addEventListener("click", function () {
+                storeDeletedTasks.push(removeOnClick[i].parentElement)
+                removeOnClick[i].parentElement.remove();
+            })
+        }
+    </script>
+
+</body>
+
+</html>
