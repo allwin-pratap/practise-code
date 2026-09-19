@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Double Button</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                radial-gradient(circle at top left, #312e81, transparent 35%),
+                radial-gradient(circle at bottom right, #0f766e, transparent 35%),
+                #0f172a;
+
+            color: white;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+        }
+
+        .container {
+            width: min(900px, 100%);
+
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            border-radius: 24px;
+            padding: 40px;
+
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+
+            backdrop-filter: blur(15px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+
+            background: linear-gradient(90deg,
+                    #818cf8,
+                    #22d3ee);
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .info {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            padding: 8px 16px;
+
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            border-radius: 999px;
+
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+
+        #doubleHolder {
+            min-height: 250px;
+
+            display: flex;
+            flex-wrap: wrap;
+
+            justify-content: center;
+            align-content: center;
+
+            gap: 15px;
+
+            padding: 30px;
+
+            border-radius: 18px;
+
+            background: rgba(2, 6, 23, 0.5);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+        }
+
+        .double {
+            border: none;
+            outline: none;
+
+            padding: 14px 24px;
+
+            border-radius: 12px;
+
+            background: linear-gradient(135deg,
+                    #6366f1,
+                    #06b6d4);
+
+            color: white;
+
+            font-size: 1rem;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 20px rgba(99, 102, 241, 0.3);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .double:hover {
+            transform: translateY(-4px) scale(1.03);
+
+            box-shadow:
+                0 12px 25px rgba(99, 102, 241, 0.5);
+        }
+
+        .double:active {
+            transform: scale(0.95);
+        }
+
+        .explanation {
+            margin-top: 30px;
+            padding: 25px;
+
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 16px;
+
+            color: #cbd5e1;
+        }
+
+        .explanation h2 {
+            color: #f8fafc;
+            font-size: 1.2rem;
+            margin-bottom: 18px;
+        }
+
+        .explanation p {
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .explanation strong {
+            color: #67e8f9;
+        }
+
+        .explanation code {
+            padding: 3px 7px;
+
+            border-radius: 6px;
+
+            background: rgba(99, 102, 241, 0.2);
+
+            color: #a5b4fc;
+        }
+
+        .flow {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+        .flow span {
+            padding: 8px 12px;
+
+            border-radius: 8px;
+
+            background: rgba(255, 255, 255, 0.06);
+
+            color: #94a3b8;
+
+            font-size: 0.85rem;
+        }
+
+
+        .footer {
+            margin-top: 25px;
+
+            text-align: center;
+
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        .hint {
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Double Button</h1>
+
+            <p>
+                Click a button to remove it and create two new buttons.
+            </p>
+        </div>
+
+        <div class="info">
+            <div class="badge">
+                ⚡ Click to multiply
+            </div>
+
+            <div class="badge">
+                🔄 Infinite generation
+            </div>
+        </div>
+
+        <div id="doubleHolder">
+
+            <button class="double">
+                Double
+            </button>
+
+        </div>
+
+        <div class="footer">
+            <span class="hint">
+                Every new button has the same behavior.
+            </span>
+        </div>
+
+        <div class="explanation">
+            <h2>🧠 How it works</h2>
+
+            <p>
+                I have a function that gives <strong>one button</strong> the ability
+                to double itself.
+            </p>
+
+            <p>
+                When the button is clicked, it is removed and
+                <strong>two new buttons</strong> are created.
+            </p>
+
+            <p>
+                Each new button is then passed back into
+                <code>doubleButton(newButton)</code>, which gives the new button
+                the same click behavior.
+            </p>
+
+            <div class="flow">
+                <span>Click button</span>
+                <span>→</span>
+                <span>Remove it</span>
+                <span>→</span>
+                <span>Create 2</span>
+                <span>→</span>
+                <span>Give them behavior</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <span class="hint">
+                Every new button has the same behavior.
+            </span>
+        </div>
+
+
+    </div>
+
+
+    <script>
+
+        let mainParent = document.getElementById("doubleHolder");
+        function doubleButton(button) {
+            button.addEventListener("click", function () {
+                // remove clicked button
+                button.remove();
+                // create 2 new buttons
+                for (let j = 0; j < 2; j++) {
+                    let newButton = document.createElement("button");
+                    newButton.classList.add("double");
+                    newButton.innerText = "Double";
+                    // give the new button the same functionality
+                    doubleButton(newButton);
+                    mainParent.appendChild(newButton);
+                }
+            });
+        }
+
+        let button = document.querySelector(".double");
+        doubleButton(button);
+        // I have a function that gives ONE button the ability to double itself. Whenever I create a new button, I call that function on the new button too
+
+    </script>
+
+</body>
+
+</html>
